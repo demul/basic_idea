@@ -80,7 +80,7 @@ Mode Collapse를 다루는 것은 GAN학습에 있어 가장 빈번하게 나타
 
 또 논문에서 권하는 구조를 사용(Leaky ReLu를 ReLu로 대체)했는데 오히려 성능이 떨어진 것을 보면 최소한 GAN에 있어서 활성화 함수의 사용은, 그저 Data-by-Data이며 상당히 Heuristic한 것 같다.
 
-# 4.Reference
+# 5.Reference
 [1] Improved Techniques for Training GANs. (<https://arxiv.org/abs/1606.03498>)
 
 [2] Unrolled Generative Adversarial Networks. (<https://arxiv.org/abs/1611.02163>)
