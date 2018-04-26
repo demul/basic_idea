@@ -82,10 +82,15 @@ Mode Collapse를 다루는 것은 GAN학습에 있어 가장 빈번하게 나타
 
 # 4.Reference
 [1] Improved Techniques for Training GANs. (<https://arxiv.org/abs/1606.03498>)
+
 [2] Unrolled Generative Adversarial Networks. (<https://arxiv.org/abs/1611.02163>)
+
 [3] AdaGAN: Boosting Generative Models. (<https://arxiv.org/abs/1701.02386v1>)
+
 [4] NIPS 2016 Tutorial: Generative Adversarial Networks. (<https://arxiv.org/abs/1701.00160v3>)
+
 [5] Aiden Nibali's Posting "Mode collapse in GANs"  (<http://aiden.nibali.org/blog/2017-01-18-mode-collapse-gans/>)
+
 
 Special Thanks to Aiden Nibali to allow share his post. (<http://aiden.nibali.org/>)
 
