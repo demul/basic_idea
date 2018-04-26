@@ -4,6 +4,7 @@ Mode Collapse Problem on GAN
 
 # 1.Intro
 생성모델을 공부하던 중, 구글에서 내려받은 DCGAN 예제 코드를 돌리다가, Generator의 활성화 함수가 논문에서 권하는 ReLu가 아닌, Leaky ReLu인 것을 발견하고, 이 부분을 수정하고 다시 학습을 진행시키던 도중, Mode Collapse 문제에 직면했다.
+
 ![img](Images/fig1.jpg)
 
 15에폭까지는 정상적으로 학습이 되다가, 16에폭부터 노이즈가 끼더니 전부 하나의 똑같은 노이즈가 되어버렸다가, 숫자 2를 닮은 형상으로도 바뀌었다가 한다. 전형적인 Mode Collapse 현상이라고 한다.
@@ -18,7 +19,9 @@ Mode Collapse Problem on GAN
 예를 들어, 우리가 호주 중부 Alice Springs의 여름 기온 Sample과(개덥다고 함) 남극점의 여름 기온 Sample(개춥다고 함)이 섞인 여름 날씨 데이터셋을 가지고 있다고 해보자.
 
 데이터의 분포는  두 장소의 평균 기온이 두 개의 Peak로 나타난 가운데, 그 사이엔 Gap이 있는 Bimodal한 형태를 띈다. 아래 그래프는 이러한 분포를 명확하게 보여준다.
+
 ![img](Images/fig2.jpg)
+
 이제 우리가 이 데이터셋으로 그럴듯한 현실 기온값을 만들어 내는 GAN모델을 학습시킨다고 해보자. 직관적으로 말해서, 우린 Generator가 더운 날씨와 추운 날씨를, 얼추 비슷한 확률로 접하며, 둘 다 모방하여 만들어 낼 수 있도록 학습할거라고 생각할것이다.
 
 하지만 이 경우, Generator가 한 가지 Mode의 Sample만 출력해내는(예를 들면 오로지 남극 날씨만 출력해내는) 문제인 Mode Collapse문제가 종종 발생하게 된다.
@@ -68,4 +71,5 @@ Mode Collapse를 다루는 것은 GAN학습에 있어 가장 빈번하게 나타
 또 Intro에서 보여진 내 Mode Collapse의 경우 Generator의 출력이 하나의 Mode로 통일됐다기 보다는 그냥 아예 Noise를 보여주고 있는데, 찾아보니 이런 식으로 Mode Collapse되는 경우도 꽤 많다. 앞서 말한 ‘여러 Mode중, 어떤 분포를 학습하는데도 아무런 이점을 얻을 수 없는’ 상태가 지속되어 아예 파워 밸런스가 깨져서(Discriminator가 너무 강해져서) 이런 결과가 나타나는 것 같다. 앞서 호주, 남극점 문제를 통해 직관적으로 표현하자면, Generator가 호주와 남극점 사이를 널뛰기 하다가, Discriminator가 너무 강해져서 D(G(x))가 계속 0에 가까운 값만 출력하면서 Gradient를 잃게 되고, 결국 호주 기온과 남극점 기온 사이 혹은 바깥쪽의 어딘가에서 방황만 하게 되는 것이다. 앞서 도입부에서 말한 내 GAN Model의 에폭 당 Loss를 나타낸 그래프를 보면 이 가설이 어느 정도 들어맞는 것 같다.
 
 ![img](Images/fig3.jpg)
+
 또 논문에서 권하는 구조를 사용(Leaky ReLu를 ReLu로 대체)했는데 오히려 성능이 떨어진 것을 보면 최소한 GAN에 있어서 활성화 함수의 사용은, 그저 Data-by-Data이며 상당히 Heuristic한 것 같다.
