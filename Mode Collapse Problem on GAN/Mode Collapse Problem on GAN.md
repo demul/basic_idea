@@ -9,7 +9,7 @@ Mode Collapse Problem on GAN
 
 15에폭까지는 정상적으로 학습이 되다가, 16에폭부터 노이즈가 끼더니 전부 하나의 똑같은 노이즈가 되어버렸다가, 숫자 2를 닮은 형상으로도 바뀌었다가 한다. 전형적인 Mode Collapse 현상이라고 한다.
 
-구글링해보니 이것이 무엇이며, 이를 피하기 위해 어떤 기법들이 개발되어 있는지 잘 Overview 해놓은 포스팅(<http://aiden.nibali.org/blog/2017-01-18-mode-collapse-gans/>)이 있었다. 2017년 1월 포스팅으로, 최신 기법들까지 모두 반영하고 있지는 않지만, Mode Collapse에 대해서 매우 직관적으로 잘 설명해 놓았으므로, 원저자의 허가를 받고 이를 번역하여 정리해두기로 하였다. 아랫 단락부터는 해당 포스팅의 번역이다.
+구글링해보니 이것이 무엇이며, 이를 피하기 위해 어떤 기법들이 개발되어 있는지 잘 Overview 해놓은 포스팅[5]이 있었다. 2017년 1월 포스팅으로, 최신 기법들까지 모두 반영하고 있지는 않지만, Mode Collapse에 대해서 매우 직관적으로 잘 설명해 놓았으므로, 원저자의 허가를 받고 이를 번역하여 정리해두기로 하였다. 아랫 단락부터는 해당 포스팅의 번역이다.
 
 # 2.What is Mode Collapse?
 한 마디로 표현하면 제너레이터가 아주 적은 Mode의(Low Variety) 샘플만을 생산하도록 학습하는 현상을 말한다.
@@ -79,3 +79,13 @@ Mode Collapse를 다루는 것은 GAN학습에 있어 가장 빈번하게 나타
 ![img](Images/fig3.jpg)
 
 또 논문에서 권하는 구조를 사용(Leaky ReLu를 ReLu로 대체)했는데 오히려 성능이 떨어진 것을 보면 최소한 GAN에 있어서 활성화 함수의 사용은, 그저 Data-by-Data이며 상당히 Heuristic한 것 같다.
+
+# 4.Reference
+[1] Improved Techniques for Training GANs. (<https://arxiv.org/abs/1606.03498>)
+[2] Unrolled Generative Adversarial Networks. (<https://arxiv.org/abs/1611.02163>)
+[3] AdaGAN: Boosting Generative Models. (<https://arxiv.org/abs/1701.02386v1>)
+[4] NIPS 2016 Tutorial: Generative Adversarial Networks. (<https://arxiv.org/abs/1701.00160v3>)
+[5] Aiden Nibali's Posting "Mode collapse in GANs"  (<http://aiden.nibali.org/blog/2017-01-18-mode-collapse-gans/>)
+
+Special Thanks to Aiden Nibali to allow share his post. (<http://aiden.nibali.org/>)
+
