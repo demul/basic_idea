@@ -48,19 +48,19 @@ Mode Collapse는 잘 알려진 문제점이며, 연구자들은 이를 극복하
 ## 3.1.Directly encourage diversity
 개별 샘플을 따로 고려하여 출력 다양성을 결정하는 것은 불가능하므로, 이를 결정하는데 배치단위를 사용한다. Mini-batch discrimination과 Feature mapping[1]이 이러한 기법에 해당한다. 
 
-Mini-batch discrimination은 Discriminator에게 배치안의 샘플들을 서로 비교할수 있게 하여, 그 배치가 Mode Collapse하고 있는 중인지 알 수 있게 돕는다.(역자:논문을 보니 배치를 Discimirinator에 넣고 중간 layer쯤에서 어느정도 차원 축소된 feature를 빼와서, feature마다 다른 feature들과의 거리를 계산해서 합한 걸 각 feature마다 새로운 인자로 Concat해주는 방식이다. 그러니까 배치안의 이미지들간의 유사도를 나타내는 인자를 새로운 feature로 추가해주는 것이다. 자세한 건 논문 참조.)
+Mini-batch discrimination은 Discriminator에게 배치안의 샘플들을 서로 비교할수 있게 하여, 그 배치가 Mode Collapse하고 있는 중인지 알 수 있게 돕는다.(*역자:논문을 보니 배치를 Discimirinator에 넣고 중간 layer쯤에서 어느정도 차원 축소된 feature를 빼와서, feature마다 다른 feature들과의 거리를 계산해서 합한 걸 각 feature마다 새로운 인자로 Concat해주는 방식이다. 그러니까 배치안의 이미지들간의 유사도를 나타내는 인자를 새로운 feature로 추가해주는 것이다. 자세한 건 논문 참조.*)
 
-Feature mapping은 Generator의 목적함수에 진짜 배치와 가짜 배치간의 차이를 나타내는 인자를 추가한다. 이 인자는 가짜 배치와 진짜 배치간의 Discimirinaor feature의 분포를 Matching함으로서 구현된다. (역자: Discimirinaor feature는 위에서 말한 Discimirinator에 넣고 중간 layer쯤에서 빼온 feature를 말한다. 그러니까 단순히 가짜배치와 진짜 배치간의 Euclidean Feature Distance를 구해 목적함수로 추가하는 것이다.)
+Feature mapping은 Generator의 목적함수에 진짜 배치와 가짜 배치간의 차이를 나타내는 인자를 추가한다. 이 인자는 가짜 배치와 진짜 배치간의 Discimirinaor feature의 분포를 Matching함으로서 구현된다. (*역자: Discimirinaor feature는 위에서 말한 Discimirinator에 넣고 중간 layer쯤에서 빼온 feature를 말한다. 그러니까 단순히 가짜배치와 진짜 배치간의 Euclidean Feature Distance를 구해 목적함수로 추가하는 것이다.*)
 
 나는 원조 GAN Generator의 목적함수에 Feature mapping을 도입함으로서 꽤 성과를 거둔 적이 있다. 
 
 ## 3.2.Anticipate counterplay
 두 모드 사이를 널뛰는 고양이-쥐 게임을 막는 방법 중 또 하나는, 패러미터를 갱신할 때,  미래를 살짝 엿보고 Counterplay에 관여하는 것이다. 이 Approach는 게임이론을 아는 사람들에게는 익숙할 것이다.(eg minimax) 직관적으로 말해, 이는 GAN게임의 플레이어들이 상대방이 쉽게 카운터 칠 수 있는 움직임을 하지 않도록 막는 것이다.
 
-Unrolled GANs[2]이 이러한 Approach를 취했는데, Generator가 Disciminator의 업데이트를 **Fully differentiable way**(역자:뭔말인지 잘 모르겠음)로 펼쳐볼 수 있게 하는 방식이다. 이제 Generator가 현재 Discriminator를 속이도록 하는 대신, 적절하게 반응할 찬스를 가진 뒤의 Discriminator를 최대한 속이도록, 즉 Discriminator의 반응도 계산해서 학습한다. 이 기법의 단점을 학습시간이 증가한다는 것이다.(Generator가 업데이트 할 때 마다 Discriminator의 업데이트를 Simulation해야하기 때문이다.) 또 다른 단점은 Gradient의 계산이 매우 복잡하다는 것이다.(Optimizer의 업데이트 스텝을 통한 BP가 어려워 질 수 있다.)
+Unrolled GANs[2]이 이러한 Approach를 취했는데, Generator가 Disciminator의 업데이트를 Fully differentiable way(*역자:뭔말인지 잘 모르겠음*)로 펼쳐볼 수 있게 하는 방식이다. 이제 Generator가 현재 Discriminator를 속이도록 하는 대신, 적절하게 반응할 찬스를 가진 뒤의 Discriminator를 최대한 속이도록, 즉 Discriminator의 반응도 계산해서 학습한다. 이 기법의 단점을 학습시간이 증가한다는 것이다.(Generator가 업데이트 할 때 마다 Discriminator의 업데이트를 Simulation해야하기 때문이다.) 또 다른 단점은 Gradient의 계산이 매우 복잡하다는 것이다.(Optimizer의 업데이트 스텝을 통한 BP가 어려워 질 수 있다.)
 
 ## 3.3.Use experience replay
-GAN이 Mode사이를 널뛰기 하는 것을 최소화 하는 또 다른 방법은, Discriminator에게 과거의 가짜 샘플을 종종 보여주는 것이다. 이는 Discriminator가 (역자:Mode 사이를 널뛰기만 하면서 D(G(x))를 최대화 하려 하는)Generator에게 너무 이용당하기 쉬워지는 것을 막는다. 다만 Generator가 과거에 생성한 적 있는 Mode들에 대해서만 이 방법이 유효할 것이다.
+GAN이 Mode사이를 널뛰기 하는 것을 최소화 하는 또 다른 방법은, Discriminator에게 과거의 가짜 샘플을 종종 보여주는 것이다. 이는 Discriminator가 (*역자:Mode 사이를 널뛰기만 하면서 D(G(x))를 최대화 하려 하는*)Generator에게 너무 이용당하기 쉬워지는 것을 막는다. 다만 Generator가 과거에 생성한 적 있는 Mode들에 대해서만 이 방법이 유효할 것이다.
 
 일정 반복수마다 Generator와 Discriminator를 과거의 것으로 대체함으로서 이와 유사한 효과를 거둘 수 있다.
 
@@ -72,7 +72,9 @@ Mode Collapse와 싸우는 대신, 그냥 심플하게 GAN은 오로지 Mode의 
 
 Mode Collapse를 다루는 것은 GAN학습에 있어 가장 빈번하게 나타나고 어려운 부분이다. 이를 개선하기 위한 Approach들도 여럿 있었지만, 이 모든 시도들이 신경망을 통해 Minimax Problem을 풀려는 GAN구조의 근본적인 문제점을 해결했다기보단, 일종의 문제를 최소화 내지는 우회한 정도로 그쳐있는 것으로 보인다. (특히 Feature Matching의 경우 개인적으로  Memorization에 상당히 취약해서 위험한 기법이 아닌가 생각하고 있다.) 따라서 Mode Collapse문제에 대해선 연구할 거리도 개선할 거리도 많이 남아 있다.
 
-또 Intro에서 보여진 내 Mode Collapse의 경우 Generator의 출력이 하나의 Mode로 통일됐다기 보다는 그냥 아예 Noise를 보여주고 있는데, 찾아보니 이런 식으로 Mode Collapse되는 경우도 꽤 많다. 앞서 말한 ‘여러 Mode중, 어떤 분포를 학습하는데도 아무런 이점을 얻을 수 없는’ 상태가 지속되어 아예 파워 밸런스가 깨져서(Discriminator가 너무 강해져서) 이런 결과가 나타나는 것 같다. 앞서 호주, 남극점 문제를 통해 직관적으로 표현하자면, Generator가 호주와 남극점 사이를 널뛰기 하다가, Discriminator가 너무 강해져서 D(G(x))가 계속 0에 가까운 값만 출력하면서 Gradient를 잃게 되고, 결국 호주 기온과 남극점 기온 사이 혹은 바깥쪽의 어딘가에서 방황만 하게 되는 것이다. 앞서 도입부에서 말한 내 GAN Model의 에폭 당 Loss를 나타낸 그래프를 보면 이 가설이 어느 정도 들어맞는 것 같다.
+또 Intro에서 보여진 내 Mode Collapse의 경우 Generator의 출력이 하나의 Mode로 통일됐다기 보다는 그냥 아예 Noise를 보여주고 있는데, 찾아보니 이런 식으로 Mode Collapse되는 경우도 꽤 많다. 앞서 말한 ‘여러 Mode중 어떤 분포를 학습하는데도 아무런 이점을 얻을 수 없는’ 상태가 지속되어 아예 파워 밸런스가 깨져서(Discriminator가 너무 강해져서) 이런 결과가 나타나는 것 같다. 
+
+앞서 호주, 남극점 문제를 통해 직관적으로 표현하자면, Generator가 호주와 남극점 사이를 널뛰기 하다가, Discriminator가 너무 강해져서 D(G(x))가 계속 0에 가까운 값만 출력하면서 Gradient를 잃게 되고, 결국 호주 기온과 남극점 기온 사이 혹은 바깥쪽의 어딘가에서 방황만 하게 되는 것이다. 앞서 도입부에서 말한 내 GAN Model의 에폭 당 Loss를 나타낸 그래프를 보면 이 가설이 어느 정도 들어맞는 것 같다.
 
 ![img](Images/fig3.jpg)
 
