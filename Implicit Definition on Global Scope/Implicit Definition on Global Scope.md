@@ -1,6 +1,6 @@
-#Is Assigning on Global Scope Possible?
+# Is Assigning on Global Scope Possible?
 
-##문제
+## 문제
 
 C 전역에서 대입연산이 안 되는 건 다들 알고 있다.
 
@@ -42,7 +42,7 @@ a=2;
 
 
 
-##해결
+## 해결
 
 C 컴파일러가 위 문장들을 선언과 대입이 아니라, 선언과 정의라고 간주하기 때문에 위 현상이 발생한다.
 
