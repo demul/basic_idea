@@ -63,7 +63,7 @@ xz라는 압축유틸을 예시로 들고있다. 우분투에는 기본으로 �
 
 
 
-![img](Images/img1.jpg)
+![img](Images/img1.JPG)
 
 
 
@@ -75,7 +75,7 @@ tuklib_progname_init()은 'xz-5.2.4\xz-5.2.4\src\xz\tuklib_progname.c'에 정의
 
 
 
-![img](Images/img2.jpg)
+![img](Images/img2.JPG)
 
 
 
