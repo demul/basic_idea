@@ -21,6 +21,8 @@ int execl('/bin/ls', '/bin/ls', '/home', NULL);
 
 
 
+## 해결
+
 구글링 결과 다음과 같은 [설명](https://unix.stackexchange.com/questions/187666/why-do-we-have-to-pass-the-file-name-twice-in-exec-functions)을 찾아 볼 수 있었다.
 
 
@@ -79,7 +81,109 @@ tuklib_progname_init()은 'xz-5.2.4\xz-5.2.4\src\xz\tuklib_progname.c'에 정의
 
 
 
-위와 같이 argv[0](헷갈릴까봐 다시 한 번 강조하자면 **Symbolic Link 파일명**)을 구분자로 삼아 옵션을 달리주는 모습을 확인할 수 있다.
+위와 같이 argv[0](헷갈릴까봐 다시 한 번 강조하자면 **실제 실행시 사용하는 파일명**)을 구분자로 삼아 옵션을 달리주는 모습을 확인할 수 있다.
 
 
 
+여기까지 이해했다면 직접 Symbolic Link를 이용한 Alias를 구현해볼 수 있다.
+
+```c
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h> 
+char* strstrip(char* str)
+{
+	// Strip the leading path.
+	char *p = str + strlen(str);
+	while (str < p && p[-1] != '/' && p[-1] != '\\')
+		--p;
+ 	str = p;
+
+ 	// Strip the .exe suffix.
+	p = strrchr(p, '.');
+	if (p != NULL)
+		*p = '\0';
+ 	return str;
+} 
+
+int main(int argc, char* argv[])
+{
+	if(argc != 1)
+	{
+		printf("Do not need additional argument\n");
+		exit(1);
+	}
+
+	char* str = strstrip(argv[0]);
+ 	if(strcmp(str, "hello")!=0)
+	{
+		printf("I am Hello%d\n", atoi(str+5));
+		//hello2 will print "I am Hello2"
+	}
+	else
+	{
+		printf("Hello world\n");
+	}
+
+	return 0;
+}
+```
+본 repository에 같이 첨부된 hello.c 파일의 소스코드다.
+
+
+
+위 코드를 컴파일해서 hello라는 이름의 실행파일을 만든 뒤, hello2라는 이름의 Symbolic Link를 하나 걸어준 뒤 실행해보자
+
+
+
+이미지
+
+
+
+위와 같은 출력을 볼 수 있다. 
+
+
+
+마무리로 본 repository에 같이 첨부된 execl_.c를 살펴보도록 하자.
+
+```c
+#include <stdio.h>
+#include <unistd.h>
+#include <errno.h>
+#include <string.h>
+#include <stdlib.h>
+extern char **environ;
+int main(int argc, char* argv[])
+{
+	if(argc != 3)
+	{
+		printf("Usage %s <1st arg> <2st arg>\n", argv[0]);
+		exit(1);
+	}
+
+        pid_t pid;
+        int ret;
+
+        ret = execlp(argv[1], argv[2], NULL);
+        fprintf(stderr, "execl error: %s\n",strerror(errno));
+        printf("execl:%d\n",ret);
+        return 0;
+}
+```
+첫번째 인자로 실행파일의 경로, 두번째 인자로 실행파일의 main 함수에 argv[0]의 인자로 전해질, 실제로 실행할 때 사용한 파일명을 입력받는 프로그램이다. 실행결과는 다음과 같다.
+
+
+
+이미지
+
+
+
+이러한 결과로부터 우리는 exec 계열 함수들의 동작방식 뿐만 아니라, 터미널에서 파일을 실행할 때 실제로 어떤 방식으로 실행파일이 호출되는지 어느정도 이해할 수 있다.
+
+
+
+Symbolic Link는 특정 경로를 지정하는 포인터에 불과하다. 하지만 터미널상에선 우리가 무슨 이름으로 명령어를 실행했는지가 중요하고, 이것은 main 함수의 인자로 전달된다.
+
+
+
+그런데 위와 같은 결론으로 하나의 고민은 해결됐지만 또다른 고민이 꼬리를 잇는다. Symbolic Link가 단지 편의성을 위해 제공되는 기능인줄 알았는데 이런 용도가 있었다니... C++같은게 생기기 이전 시절에, 애초부터 Alias도 염두에 두고 설계된 기능일까? 경로명과 실행파일명을 분리하는 데는 좀 더 근본적인 이유와 철학이 있고 그 과정에서 생긴 부산물일까? 리눅스 시스템은 공부하면 할수록 오묘한 것 같다.
