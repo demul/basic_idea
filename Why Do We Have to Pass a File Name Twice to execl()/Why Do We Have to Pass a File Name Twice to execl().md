@@ -136,7 +136,7 @@ int main(int argc, char* argv[])
 
 
 
-이미지
+![img](Images/img4.JPG)
 
 
 
@@ -174,7 +174,7 @@ int main(int argc, char* argv[])
 
 
 
-이미지
+![img](Images/img3.JPG)
 
 
 
