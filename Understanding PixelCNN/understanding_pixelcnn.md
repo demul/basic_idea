@@ -345,6 +345,27 @@ Condition이 적용된 Gated PixelCNN은 위와 같은 수식으로 정리할 �
 
 
 
-## 6.Ending
+![img](images/g_pixelcnn7.png)
 
 
+
+위 그림은 Conditional PixelCNN을 Conditional Image Generation에 사용한 예시를 보여준다. 두 영상의 Embbeding Latent Vector를 Cross Disolve시켜가며 다양한 영상을 생성하는 모습을 보여준다. 이외에도 Conditional PixelCNN은 Super Resolution([Pixel Recursive Super Resolution](https://arxiv.org/pdf/1702.00783.pdf))이나 Auto Colorization([PixColor: Pixel Recursive Colorization](https://arxiv.org/abs/1705.07208))등에 사용된다.
+
+
+
+[PixColor: Pixel Recursive Colorization](https://arxv.org/abs/170.07208)에 대해선 별도로 내가 직접 구현중인 [Auto Colorization Project Repository](https://github.com/demul/auto_colorization_project)에 정리해 놓았다.
+
+
+
+## 6.Finishing Comment
+
+
+Auto-Regressive Model들을 공부하면서 너무나도 많은 고통을 받았다. 논문들이 대체로 "너 이거 당연히 알제?"하는 식으로 쓰여 있었기 때문이다. Deepmind는 아이디어는 정말 우수한데 그 아이디어를 너무 대충 풀어쓰는 것 같다. 얘네 논문을 읽고 있자니 아이디어도 우수하고 논문으로서의 완결성도 완벽하고 심지어 재현성도 엄청나게 높은 논문들을 쏟아내는 FAIR가 진짜 대단한 조직이라는 생각이 문득 들었다. 특히 Kaiming He는 거의 신적인 존재라는 생각이 들었다.
+
+
+
+아무튼 내가 다음에 Auto-Regressive Method를 다시 공부해야할 일이 생겼을 때 지금과 같은 고통을 받지 않기 위해, 그리고 혹시라도 Auto-Regressive Model을 공부하다가 우연히 내 깃허브를 본 사람들을 최대한 고통에서 빨리 해방시켜주기 위해 많은 시간을 할애해 본 문서를 작성하였다.
+
+
+
+본 문서에서 이해가 되지 않거나 잘못된 내용이 있으면 꼭 Issue를 남겨주시길 바란다.
