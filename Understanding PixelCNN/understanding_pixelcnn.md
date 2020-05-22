@@ -168,7 +168,7 @@ Diagonal BiLSTM에서 각 픽셀의 State를 계산하는 수식은 Row LSTM에�
 ## 4.3.PixelCNN
 
 
-![img](images/pixelrnn8.png)
+![img](images/pixelrnn9.png)
 
 
 
