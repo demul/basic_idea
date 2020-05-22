@@ -87,7 +87,7 @@ NLL을 측정할 때(Evaluation)는, 완전한 이미지 하나를 준 뒤, 각 
 
 
 
-Figure4에서 볼 수 있듯, Row LSTM의 한 픽셀은 자신 바로 위의 세 픽셀과, 자신 왼쪽의 한 픽셀로 부터 state를 전달받는다. 이후 state를 전달한 위의 세 픽셀과 왼쪽의 한 픽셀이 동일한 형태로 자신 바로 위의 세 픽셀과, 자신 왼쪽의 한 픽셀로 부터 state를 전달받는 상황을 생각해 보라. 역삼각형 형태로 Dependency가 확장되는 것을 알 수 있다. 
+Figure4에서 볼 수 있듯, Row LSTM의 한 픽셀은 자신 바로 위의 세 픽셀과, 자신 왼쪽의 한 픽셀로 부터 state를 전달받는다. 이후 state를 전달한 위의 세 픽셀과 왼쪽의 한 픽셀이 동일한 형태로 자신 바로 위의 세 픽셀과, 자신 왼쪽의 한 픽셀로 부터 state를 전달받는 상황을 생각해 보자. 역삼각형 형태로 Dependency가 확장되는 것을 알 수 있다. 
 
 
 
@@ -95,7 +95,7 @@ Figure4에서 볼 수 있듯, Row LSTM의 한 픽셀은 자신 바로 위의 세
 
 
 
-위 수식 (3)은 이러한 PixelLSTM 구조를 나타낸 것이다. x는 픽셀 값을 의미한다. o, f, i, g는 LSTM Gate들이고, c와 h는 Hidden State이다.  h_i-1은 바로 윗 행을 나타낸다. x_i는 현재행을 나타낸다.  ＊기호는 Convolution 연산을, ◎ 기호는 Element-Wise Pruduct를 나타낸다. σ 기호는 시그모이드 활성화함수를, tanh는 하이퍼볼릭탄젠트 활성화 함수를 나타낸다. K^ss는 State-to-State Weight로 윗 행의 State과 Conv되는 커널이고, K^is는 Input-to-State Weight로 현재 행의 픽셀값과 Conv되는 커널이다. 두 커널의 특징을 Table 1의 Row LSTM 부분 구조와 대조해서 살펴보길 바란다.커널의 형태와 Masked, Non-Masked 여부에 주목하라, 여기서 Masked가 뭔지 알아보겠다.
+위 수식 (3)은 이러한 PixelLSTM 구조를 나타낸 것이다. x는 픽셀 값을 의미한다. o, f, i, g는 LSTM Gate들이고, c와 h는 Hidden State이다.  h_i-1은 바로 윗 행을 나타낸다. x_i는 현재행을 나타낸다.  ＊기호는 Convolution 연산을, ◎ 기호는 Element-Wise Pruduct를 나타낸다. σ 기호는 시그모이드 활성화함수를, tanh는 하이퍼볼릭탄젠트 활성화 함수를 나타낸다. K^ss는 State-to-State Weight로 윗 행의 State과 Conv되는 커널이고, K^is는 Input-to-State Weight로 현재 행의 픽셀값과 Conv되는 커널이다. 두 커널의 특징을 Table 1의 Row LSTM 부분 구조와 대조해서 살펴보길 바란다. 커널의 형태와 Masked, Non-Masked 여부에 주목, 여기서 Masked가 뭔지 알아보겠다.
 
 
 ![img](images/pixelrnn7.png)
@@ -125,7 +125,7 @@ Masked Convolution은 위 그림과 같이 자신의 왼쪽과 위쪽을 제외�
 ## 4.2.Diagonal BiLSTM
 
 
-Figure4에서 볼 수 있듯, Diagonal BiLSTM LSTM의 한 픽셀은 자신 바로 위의 한 픽셀과, 자신 왼쪽의 한 픽셀로 부터 state를 전달받는다. 다만 이 픽셀들이 왼쪽 위 끝부터 오른쪽 위 끝까지 완전하게 연결되어 있다. 즉 PixelRNN의 최초 컨셉과 완전히 일치하는 Dependency Field를 갖는다. 
+Figure4에서 볼 수 있듯, Diagonal BiLSTM LSTM의 한 픽셀은 자신 바로 위의 한 픽셀과, 자신 왼쪽의 한 픽셀로 부터 state를 전달받는다. 다만 이 픽셀들이 왼쪽 위 끝부터 오른쪽 아래 끝까지 완전하게 연결되어 있다. 즉 PixelRNN의 최초 컨셉과 완전히 일치하는 Dependency Field를 갖는다. 
 
 
 
