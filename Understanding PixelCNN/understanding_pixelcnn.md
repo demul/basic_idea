@@ -311,7 +311,7 @@ Horizental Stack은 사실 직관적으로 쉽게 이해가 간다. 각 픽셀�
 
 
 
-![img](images/GatedPixelCNN8.png)
+![img](images/GatedPixelCNN8.jpg)
 
 
 
