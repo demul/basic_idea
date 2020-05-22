@@ -183,7 +183,7 @@ LSTM Gate를 사용하지 않고도 각 픽셀이 좌상단에 Dependency를 갖
 
 
 
-이 논문에 소개된 모델들에 적용된 Skip Connection을 보여주는 그림인데, 뜬금없이 차원수가 2h로 불어나 있는 부분이 의아할 것이다. 이 논문 읽다가 상당히 헷갈렸던 부분인데, 진짜 저자를 만나면 몇 대 때려주고 싶은 생각이 들었다. LSTM계열 모델의 경우, 위 수식 (3)에서 State만 출력하고, 현재 픽셀의 연산 후 값을 출력하는 부분이 없는데, 2h가 i-s와 s-s의 두 차원을 의미하고, Input-to-State 커널이 차원을 감소시킨다는 논문의 언급(The input-to-state component reduces the number offeatures by producinghfeatures per gate)에서 유추해 볼 때, 현재 픽셀값은 Residual Unit에서 1x1 Convolution을 통해 차원증가하면서 구해지는 것이라고 추리해 볼 수 있다. 
+이 논문에 소개된 모델들에 적용된 Skip Connection을 보여주는 그림인데, 뜬금없이 차원수가 2h로 불어나 있는 부분이 의아할 것이다. 이 논문 읽다가 상당히 헷갈렸던 부분인데, 진짜 저자를 만나면 몇 대 때려주고 싶은 생각이 들었다. LSTM계열 모델의 경우, 위 수식 (3)에서 State만 출력하고, 현재 픽셀의 '연산 후 값'을 출력하는 부분이 없는데, 2h가 i-s와 s-s의 두 차원을 의미하고, Input-to-State 커널이 차원을 감소시킨다는 논문의 언급(The input-to-state component reduces the number offeatures by producinghfeatures per gate)에서 유추해 볼 때, 현재 픽셀값은 Residual Unit에서 1x1 Convolution을 통해 차원증가하면서 구해지는 것이라고 추리해 볼 수 있다. 
 
 
 
