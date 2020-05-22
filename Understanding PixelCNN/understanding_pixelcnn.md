@@ -311,9 +311,6 @@ Horizental Stack은 사실 직관적으로 쉽게 이해가 간다. 각 픽셀�
 
 
 
-![img](images/GatedPixelCNN8.jpg)
-
-
 
 즉 Vertical Stack에 흐르는 Feature Map은 현재행을 포함해서 위쪽에 위치한 모든 픽셀에 대해(-90º ~ 90º) Conditioning되어 있는 Feature Map이지만, 이를 한칸 씩 내리게 되면 현재행을 제외하고 위쪽에 위치한 모든 픽셀에 대해(-90º ~ 90º) Conditioning되어 있는 Feature Map이 되고, 여기에 Horizental Stack에 흐르고 있는, 현재행에서 현재 픽셀의 좌측에 있는 모든 픽셀에 대해 Conditioning되어 있는 Feature Map을 더하게 되면 Diagonal BiLSTM과 같은 Conditional Distribution을 가지게, 즉 Blind Spot이 아예 없게 된다.
 
