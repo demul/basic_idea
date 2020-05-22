@@ -225,7 +225,7 @@ Pixel Recurrent Neural Networks의 후속논문으로, 같은 저자가 쓴 만�
 
 
 
-LSTM Unit을 아예 사용하지 않기 때문에 LSTM계열 Auto-Regressive Model들보다 빠른 속도를 가지고 있지만, Dependency Filed가 중첩된 Layer수에 따라 선형적으로 증가한다는 점(즉 충분히 Convolution 커널을 쌓지 않으면 Dependency Filed 크기가 작다는 점), LSTM Gates와 같은 Multiplicative Unit이 없어 모델의 표현력이 떨어진다는 점, 그리고 Row LSTM처럼 Blind Spot이 존재한다는 점 등의 한계로 인해 LSTM계열 Model들보다 떨어지는 성능을 가지고 있었다.
+PixelCNN은 LSTM Unit을 아예 사용하지 않기 때문에 LSTM계열 Auto-Regressive Model들보다 빠른 속도를 가지고 있지만, Dependency Filed가 중첩된 Layer수에 따라 선형적으로 증가한다는 점(즉 충분히 Convolution 커널을 쌓지 않으면 Dependency Filed 크기가 작다는 점), LSTM Gates와 같은 Multiplicative Unit이 없어 모델의 표현력이 떨어진다는 점, 그리고 Row LSTM처럼 Blind Spot이 존재한다는 점 등의 한계로 인해 LSTM계열 Model들보다 떨어지는 성능을 가지고 있었다.
 
 
 
@@ -334,7 +334,7 @@ Horizental Stack은 사실 직관적으로 쉽게 이해가 간다. 각 픽셀�
 PixelCNN의 Conditional 버전은 위 수식과 같이 계산된다. PixelCNN의 수식에서 하나 추가된 것이 h인데, h는 Condition을 나타낸다. h는 One-hot Encoding이 될 수도 있고, Embbeding Vector가 될 수도 있고, 아예 영상이 생으로 들어갈 수도 있다.
 
 
-![img](images/g_pixelcnn2.png)
+![img](images/g_pixelcnn1.png)
 
 
 
