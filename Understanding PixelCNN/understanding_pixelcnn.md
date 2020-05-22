@@ -283,23 +283,7 @@ Horizental Stack은 사실 직관적으로 쉽게 이해가 간다. 각 픽셀�
 사실 Vertical Stack이 Horizental Stack에 더해지는 부분은, 4.2.Diagonal BiLSTM에서 오른쪽->왼쪽 Hidden State Map(0º ~ 90º)을 왼쪽->오른쪽 Hidden State Map(-90º ~ 0º)에 더해주는 부분과 꽤 유사한 트릭을 사용한다. 이 부분은 그림으로 보는 편이 이해하기 쉽기 때문에 내가 직접 그린 그림으로 설명한다.
 
 
-![img](images/GatedPixelCNN1.png)
-
-
-
-![img](images/GatedPixelCNN2.png)
-
-
-
-![img](images/GatedPixelCNN3.png)
-
-
-
-![img](images/GatedPixelCNN4.png)
-
-
-
-![img](images/GatedPixelCNN5.png)
+![img](images/GatedPixelCNN7.png)
 
 
 
@@ -307,7 +291,23 @@ Horizental Stack은 사실 직관적으로 쉽게 이해가 간다. 각 픽셀�
 
 
 
-![img](images/GatedPixelCNN7.png)
+![img](images/GatedPixelCNN5.png)
+
+
+
+![img](images/GatedPixelCNN4.png)
+
+
+
+![img](images/GatedPixelCNN3.png)
+
+
+
+![img](images/GatedPixelCNN2.png)
+
+
+
+![img](images/GatedPixelCNN1.png)
 
 
 
