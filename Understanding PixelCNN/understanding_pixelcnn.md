@@ -354,7 +354,40 @@ Condition이 적용된 Gated PixelCNN은 위와 같은 수식으로 정리할 �
 
 
 
-## 6.Finishing Comment
+
+## 6.Reference Links
+
+
+
+[Pixel Recurrent Neural Networks](https://arxiv.org/pdf/1601.06759.pdf)
+
+
+
+[Conditional Image Generation with PixelCNN Decoders](https://papers.nips.cc/paper/6527-conditional-image-generation-with-pixelcnn-decoders.pdf)
+
+
+
+[유재준님 Youtube : Pixel Recurrent Neural Networks](https://www.youtube.com/watch?v=BvcwEz4VPIQ)
+
+
+
+[Gated PixelCNN 슬라이드](https://www.slideshare.net/suga93/conditional-image-generation-with-pixelcnn-decoders)
+
+
+ 
+[PixelCNN 애니메이션](http://sergeiturukin.com/2017/02/24/gated-pixelcnn.html)
+
+
+
+[Pixel Recursive Super Resolution](https://arxiv.org/pdf/1702.00783.pdf)
+
+
+
+[PixColor: Pixel Recursive Colorization](https://arxiv.org/abs/1705.07208)
+
+
+
+## 7.Finishing Comment
 
 
 Auto-Regressive Model들을 공부하면서 너무나도 많은 고통을 받았다. 논문들이 대체로 "너 이거 당연히 알제?"하는 식으로 쓰여 있었기 때문이다. Deepmind는 아이디어는 정말 우수한데 그 아이디어를 너무 대충 풀어쓰는 것 같다. 얘네 논문을 읽고 있자니 아이디어도 우수하고 논문으로서의 완결성도 완벽하고 심지어 재현성도 엄청나게 높은 논문들을 쏟아내는 FAIR가 진짜 대단한 조직이라는 생각이 문득 들었다. 특히 Kaiming He는 거의 신적인 존재라는 생각이 들었다.
