@@ -264,15 +264,15 @@ W는 각각 다른 활성화함수를 통화하는 채널(f, g)에 각각 곱해
 
 
 
-PixelCNN에는 Blind Spot이 존재하게 되는데, 이 문제를 신경망을 Vertical Stack과 Horizental Stack의 2 Way로 나눠 각 Stack에 서로 다른 Receptive Filed를 가진 데이터가 흘러가게 하고, 중간 중간에 Vertical Stack에서 Horizental Stack 쪽으로 데이터를 제공함으로서 해결한다. 아래쪽 그림에서 왼쪽이 Vertical Stack, 오른쪽이 Horizental Stack이다. 보이는 바와 같이 Gated Activation Unit을 통과하기 전 2k의 채널을 가진 상태에서 데이터를 보낸다. 또한 Horizental Stack쪽 Feature Map과 합쳐지기 전에 한 번의 1 x 1 Convolution을 거친다.
+PixelCNN에는 Blind Spot이 존재하게 되는데, 이 문제를 신경망을 Vertical Stack과 Horizontal Stack의 2 Way로 나눠 각 Stack에 서로 다른 Receptive Filed를 가진 데이터가 흘러가게 하고, 중간 중간에 Vertical Stack에서 Horizontal Stack 쪽으로 데이터를 제공함으로서 해결한다. 아래쪽 그림에서 왼쪽이 Vertical Stack, 오른쪽이 Horizontal Stack이다. 보이는 바와 같이 Gated Activation Unit을 통과하기 전 2k의 채널을 가진 상태에서 데이터를 보낸다. 또한 Horizontal Stack쪽 Feature Map과 합쳐지기 전에 한 번의 1 x 1 Convolution을 거친다.
 
 
 
-논문에선 Vertical Stack을 위쪽에 있는 모든 행에 대하여 Conditioning하는 Stack으로 Horizental Stack을 현재 픽셀의 왼쪽에 대해서만 Conditioning하는 Stack으로 설명하고 있다.
+논문에선 Vertical Stack을 위쪽에 있는 모든 행에 대하여 Conditioning하는 Stack으로 Horizontal Stack을 현재 픽셀의 왼쪽에 대해서만 Conditioning하는 Stack으로 설명하고 있다.
 
 
 
-Horizental Stack은 사실 직관적으로 쉽게 이해가 간다. 각 픽셀이 자신의 왼쪽에 대해서만 Dependency을 가지도록 하고 싶다면 Masked k x 1 Convolution 커널을 만들어서 우측만 0으로 만들고 Convolution을 충분히 중첩시키면 될 것이다. 
+Horizontal Stack은 사실 직관적으로 쉽게 이해가 간다. 각 픽셀이 자신의 왼쪽에 대해서만 Dependency을 가지도록 하고 싶다면 Masked k x 1 Convolution 커널을 만들어서 우측만 0으로 만들고 Convolution을 충분히 중첩시키면 될 것이다. 
 
 
 
@@ -280,7 +280,7 @@ Horizental Stack은 사실 직관적으로 쉽게 이해가 간다. 각 픽셀�
 
 
 
-사실 Vertical Stack이 Horizental Stack에 더해지는 부분은, 4.2.Diagonal BiLSTM에서 오른쪽->왼쪽 Hidden State Map(0º ~ 90º)을 왼쪽->오른쪽 Hidden State Map(-90º ~ 0º)에 더해주는 부분과 꽤 유사한 트릭을 사용한다. 이 부분은 그림으로 보는 편이 이해하기 쉽기 때문에 내가 직접 그린 그림으로 설명한다.
+사실 Vertical Stack이 Horizontal Stack에 더해지는 부분은, 4.2.Diagonal BiLSTM에서 오른쪽->왼쪽 Hidden State Map(0º ~ 90º)을 왼쪽->오른쪽 Hidden State Map(-90º ~ 0º)에 더해주는 부분과 꽤 유사한 트릭을 사용한다. 이 부분은 그림으로 보는 편이 이해하기 쉽기 때문에 내가 직접 그린 그림으로 설명한다.
 
 
 ![img](images/GatedPixelCNN7.png)
@@ -312,7 +312,7 @@ Horizental Stack은 사실 직관적으로 쉽게 이해가 간다. 각 픽셀�
 
 
 
-즉 Vertical Stack에 흐르는 Feature Map은 현재행을 포함해서 위쪽에 위치한 모든 픽셀에 대해(-90º ~ 90º) Conditioning되어 있는 Feature Map이지만, 이를 한칸 씩 내리게 되면 현재행을 제외하고 위쪽에 위치한 모든 픽셀에 대해(-90º ~ 90º) Conditioning되어 있는 Feature Map이 되고, 여기에 Horizental Stack에 흐르고 있는, 현재행에서 현재 픽셀의 좌측에 있는 모든 픽셀에 대해 Conditioning되어 있는 Feature Map을 더하게 되면 Diagonal BiLSTM과 같은 Conditional Distribution을 가지게, 즉 Blind Spot이 아예 없게 된다.
+즉 Vertical Stack에 흐르는 Feature Map은 현재행을 포함해서 위쪽에 위치한 모든 픽셀에 대해(-90º ~ 90º) Conditioning되어 있는 Feature Map이지만, 이를 한칸 씩 내리게 되면 현재행을 제외하고 위쪽에 위치한 모든 픽셀에 대해(-90º ~ 90º) Conditioning되어 있는 Feature Map이 되고, 여기에 Horizontal Stack에 흐르고 있는, 현재행에서 현재 픽셀의 좌측에 있는 모든 픽셀에 대해 Conditioning되어 있는 Feature Map을 더하게 되면 Diagonal BiLSTM과 같은 Conditional Distribution을 가지게, 즉 Blind Spot이 아예 없게 된다.
 
 
 
